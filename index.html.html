@@ -3,321 +3,90 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#245c3b">
-<title>Flora Viva Putaendo</title>
+<meta name="theme-color" content="#123f2d">
+<title>Flora Viva Putaendo | Descubre, observa y conserva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
-:root{--green:#245c3b;--light:#eaf2e9;--cream:#faf9f3;--ink:#25372b;--muted:#718074}
-*{box-sizing:border-box}
-body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,sans-serif}
-header{background:var(--green);color:white;padding:22px 18px 25px}
-.brand{font-size:13px;letter-spacing:2px;text-transform:uppercase;opacity:.85}
-header h1{font-family:Georgia,serif;font-size:30px;margin:8px 0}
-header p{font-size:14px;line-height:1.5;margin:0;max-width:520px}
-main{max-width:850px;margin:auto;padding:18px 15px 95px}
-h2{font-family:Georgia,serif;color:var(--green);font-size:25px;margin:8px 0}
-h3{margin:0 0 8px;color:var(--green)}
-p{line-height:1.5}
-.muted{color:var(--muted);font-size:13px}
-.hero{background:#dce9d9;border-radius:18px;padding:22px;margin-bottom:18px}
-.hero .plant{font-size:42px}
-.hero h2{margin-top:8px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:16px 0}
-.stat,.card{background:white;border:1px solid #e5e9e1;border-radius:15px;padding:14px}
-.stat strong{display:block;color:var(--green);font-size:24px}
-.stat span{font-size:12px;color:var(--muted)}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.action{background:white;border:1px solid #e5e9e1;border-radius:14px;padding:15px;text-align:left;cursor:pointer;font-weight:bold;color:var(--green)}
-.action span{display:block;font-size:25px;margin-bottom:8px}
-button{font:inherit}
-.primary{background:var(--green);color:white;border:0;border-radius:11px;padding:12px 17px;font-weight:bold;cursor:pointer}
-.secondary{background:var(--light);color:var(--green);border:0;border-radius:10px;padding:10px 13px;cursor:pointer;font-weight:bold}
-button:disabled{opacity:.55;cursor:not-allowed}
-nav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid #e5e9e1;display:flex;justify-content:center;z-index:1000;padding:8px 3px calc(8px + env(safe-area-inset-bottom))}
-nav button{border:0;background:white;color:#68766b;font-size:11px;flex:1;max-width:150px;padding:7px 2px;cursor:pointer}
-nav button b{display:block;font-size:21px;margin-bottom:3px}
-nav button.active{color:var(--green);font-weight:bold}
-.page{display:none}.page.active{display:block}
-#map{height:390px;border-radius:16px;z-index:1;margin:14px 0}
-label{display:block;font-size:13px;font-weight:bold;margin:14px 0 6px}
-input,select,textarea{width:100%;padding:12px;border:1px solid #d8dfd6;border-radius:10px;background:white;font:inherit;color:var(--ink)}
-textarea{min-height:85px;resize:vertical}
-form .primary{width:100%;margin-top:18px}
-.species-grid,.records{display:grid;gap:12px;margin-top:14px}
-.species{background:white;border:1px solid #e5e9e1;border-radius:14px;padding:15px}
-.species .emoji{font-size:32px}
-.record{background:white;border:1px solid #e5e9e1;border-radius:14px;padding:13px;display:flex;gap:12px}
-.record img{width:90px;height:90px;object-fit:cover;border-radius:10px}
-.record .info{min-width:0;flex:1}
-.record h3{font-size:16px}
-.notice{background:#fff6df;border:1px solid #ead9a7;padding:12px;border-radius:12px;font-size:12px;line-height:1.5;margin:14px 0}
-.empty{padding:25px;text-align:center;color:var(--muted);background:white;border-radius:14px}
-footer{text-align:center;color:var(--muted);font-size:11px;margin-top:25px}
-.auth-panel{background:white;border:1px solid #dfe7dc;border-radius:15px;padding:17px;margin:14px 0}
-.auth-panel h3{margin-bottom:8px}
-.auth-buttons{display:grid;gap:9px;margin-top:12px}
-.auth-buttons button{width:100%}
-.google-btn{background:white;color:#25372b;border:1px solid #cfd8cf;border-radius:10px;padding:12px;font-weight:bold;cursor:pointer}
-.auth-message{font-size:13px;line-height:1.5;margin-top:10px;color:#8a3d25}
-.auth-message.ok{color:#245c3b}
-.userbar{background:var(--light);border-radius:10px;padding:12px;font-size:13px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.hidden{display:none!important}
-@media(min-width:650px){.species-grid{grid-template-columns:1fr 1fr}.records{grid-template-columns:1fr 1fr}}
+:root{--forest:#123f2d;--deep:#082b20;--leaf:#5e9d43;--lime:#a7d86b;--cream:#f7f7ed;--ink:#142d25;--muted:#60736a;--glass:rgba(255,255,255,.88);--shadow:0 14px 35px rgba(16,49,35,.16)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:"DM Sans",Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}.top{position:relative;min-height:680px;color:#fff;background:linear-gradient(90deg,rgba(4,30,22,.78),rgba(4,30,22,.25) 55%,rgba(4,30,22,.12)),url("putaendo-portada.jpg") center 47%/cover no-repeat;overflow:hidden}.top:after{content:"";position:absolute;inset:auto 0 0;height:160px;background:linear-gradient(transparent,var(--cream));pointer-events:none}.navwrap{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:22px;padding:22px clamp(20px,5vw,78px)}.brand{display:flex;align-items:center;gap:12px;color:white;text-decoration:none;min-width:220px}.brand-mark{font-size:48px;line-height:1;filter:drop-shadow(0 3px 4px #123f2d)}.brand-name{font-weight:800;font-size:25px;line-height:1.02;letter-spacing:-1px}.brand-name span{display:block;color:#b8e18a}.nav{display:flex;gap:5px;padding:8px;border:1px solid rgba(255,255,255,.65);border-radius:40px;background:rgba(255,255,255,.78);backdrop-filter:blur(16px);box-shadow:0 8px 25px #102d2530}.nav button{border:0;background:transparent;color:#173c2d;padding:12px 17px;border-radius:30px;font-weight:700}.nav button:hover,.nav button.active{background:#e3f1d8}.login{border:1px solid rgba(255,255,255,.7);border-radius:30px;padding:12px 20px;background:var(--deep);color:white;font-weight:700;white-space:nowrap}.hero{position:relative;z-index:2;max-width:1450px;margin:38px auto 0;padding:0 clamp(22px,6vw,90px)}.eyebrow{display:inline-block;padding:8px 15px;border-radius:30px;background:rgba(24,76,48,.7);font-size:13px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase}.hero h1{font-size:clamp(52px,7.2vw,100px);line-height:.9;letter-spacing:-4px;margin:20px 0 18px;font-weight:800;text-shadow:0 5px 24px #0005}.hero h1 span{display:block;color:#a8df73}.hero p{font-size:clamp(17px,2vw,22px);line-height:1.45;max-width:560px;margin:0 0 26px;text-shadow:0 2px 8px #0008}.actions{display:flex;gap:12px;flex-wrap:wrap}.btn{border:0;border-radius:35px;padding:15px 24px;font-weight:800;display:inline-flex;align-items:center;gap:10px;text-decoration:none}.btn.primary{background:linear-gradient(135deg,#8bcf54,#357a35);color:white;box-shadow:0 8px 22px #174d2b66}.btn.outline{background:#0b3028aa;color:white;border:1px solid #fff}.features{position:relative;z-index:4;max-width:1450px;margin:-5px auto 0;padding:0 clamp(18px,5vw,76px);display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.feature{min-height:145px;border:1px solid #fff;border-radius:24px;background:var(--glass);backdrop-filter:blur(12px);box-shadow:var(--shadow);color:var(--ink);padding:23px;display:flex;gap:17px;align-items:center;text-align:left;transition:.2s}.feature:hover{transform:translateY(-4px)}.feature-icon{flex:0 0 54px;height:54px;border-radius:50%;display:grid;place-items:center;background:var(--forest);color:#fff;font-size:26px}.feature h3{margin:0 0 6px;font-size:18px}.feature p{margin:0 0 10px;color:#4f6258;font-size:14px;line-height:1.4}.feature a{color:#286032;font-size:14px;font-weight:800;text-decoration:none}.section{max-width:1450px;margin:65px auto;padding:0 clamp(20px,5vw,76px)}.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:22px}.section h2{font-size:clamp(27px,3vw,38px);margin:0 0 8px;color:#123c2e}.section-head p{margin:0;color:var(--muted)}.species-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.species{position:relative;min-height:220px;border-radius:20px;overflow:hidden;background:#294c37;box-shadow:var(--shadow);color:white;display:flex;align-items:end;text-decoration:none}.species img{position:absolute;width:100%;height:100%;object-fit:cover;inset:0;transition:transform .4s}.species:hover img{transform:scale(1.06)}.species.featured{outline:3px solid #a8df73;outline-offset:3px}.species.featured .tag{background:#ffe0a8;color:#713b16}.catalog-card.priority{border:2px solid #8bcf54;box-shadow:0 8px 24px #285a3220}.catalog-card.priority h3:after{content:'  · ESPECIE PRINCIPAL';font-size:10px;color:#39733b;letter-spacing:.5px}.species:after{content:"";position:absolute;inset:25% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.82))}.species-info{position:relative;z-index:1;padding:17px;width:100%}.species-info strong{display:block;font-size:16px}.species-info em{font-size:13px;opacity:.9}.tag{position:absolute;z-index:2;top:13px;right:13px;background:#e4f2d5;color:#214f2c;border-radius:20px;padding:6px 10px;font-size:11px;font-weight:800}.tag.local{background:#d7f0bd}.tag.chile{background:#fff0bd}.panel{background:white;border-radius:24px;padding:25px;box-shadow:var(--shadow);margin:25px 0}.panel h2{margin-top:0}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}.toolbar input,.toolbar select,.field input{border:1px solid #d7e1d8;border-radius:12px;padding:12px 14px;background:white;color:var(--ink)}.toolbar input{flex:1;min-width:220px}.catalog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.catalog-card{border:1px solid #e4ebe3;border-radius:18px;overflow:hidden;background:#fff}.catalog-card img{width:100%;height:180px;object-fit:cover}.catalog-card div{padding:16px}.catalog-card h3{margin:0 0 5px}.catalog-card p{font-size:14px;color:var(--muted);line-height:1.5}.pill{display:inline-block;border-radius:20px;padding:5px 9px;background:#eaf3e4;color:#285a32;font-size:11px;font-weight:800}.pill.region{background:#fff0c9;color:#74521b}.hidden{display:none!important}#map{height:420px;border-radius:18px;z-index:1}.map-note{font-size:13px;color:var(--muted);line-height:1.5}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.stat{padding:22px;border-radius:18px;background:#eff5e9;text-align:center}.stat strong{display:block;font-size:34px;color:var(--forest)}.community{background:linear-gradient(120deg,#0b3828,#245c37);color:white;border-radius:28px;padding:35px;display:flex;justify-content:space-between;align-items:center;gap:25px}.community h2{color:white}.community p{max-width:650px;color:#e0eddf}.footer{margin-top:70px;padding:36px 6vw;background:linear-gradient(110deg,#082b20,#245b34);color:#eaf5e3;display:flex;justify-content:space-between;gap:20px;align-items:center}.footer strong{font-size:18px}.modal{position:fixed;inset:0;background:#061d16b8;z-index:20;display:none;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modal-box{width:min(440px,100%);background:white;border-radius:22px;padding:25px;color:var(--ink);box-shadow:var(--shadow)}.modal-box h2{margin-top:0}.field{display:grid;gap:6px;margin:12px 0}.field label{font-size:13px;font-weight:700}.modal-actions{display:grid;gap:10px;margin-top:15px}.modal-actions button{border:0;border-radius:12px;padding:13px;font-weight:800}.google{background:#edf4ea;color:#183e2b}.submit{background:var(--forest);color:white}.close{float:right;border:0;background:transparent;font-size:24px}.status{font-size:13px;color:#376b3b;min-height:18px}.userline{font-size:13px;color:#d9f1d2}.map-pin-note{font-size:12px;color:#52685a}
+@media(max-width:980px){.navwrap{flex-wrap:wrap}.nav{order:3;width:100%;justify-content:center;overflow:auto}.nav button{padding:10px 12px}.features{grid-template-columns:1fr}.species-grid{grid-template-columns:repeat(2,1fr)}.catalog-grid{grid-template-columns:repeat(2,1fr)}.top{min-height:660px}}
+@media(max-width:600px){.navwrap{padding:15px}.brand{min-width:0}.brand-mark{font-size:38px}.brand-name{font-size:20px}.login{padding:10px 13px}.nav{justify-content:flex-start}.nav button{font-size:12px;padding:9px}.hero{margin-top:32px}.hero h1{letter-spacing:-2px}.features{margin-top:20px}.feature{padding:17px;min-height:120px}.section{margin:45px auto}.section-head{display:block}.species-grid,.catalog-grid,.stats{grid-template-columns:1fr}.species{min-height:230px}.community,.footer{display:block}.community .btn{margin-top:10px}#map{height:330px}}
 </style>
 </head>
 <body>
-<header>
-  <div class="brand">Naturaleza · Comunidad · Conservación</div>
-  <h1>🌵 Flora Viva Putaendo</h1>
-  <p>Conozcamos, registremos y protejamos la riqueza natural de nuestro territorio.</p>
-</header>
-<main>
-<section id="inicio" class="page active">
+<header class="top" id="inicio">
+  <div class="navwrap">
+    <a class="brand" href="#inicio"><span class="brand-mark">🌵</span><span class="brand-name">Flora Viva<span>Putaendo</span></span></a>
+    <nav class="nav" aria-label="Navegación principal">
+      <button class="active" data-go="inicio">⌂ Inicio</button><button data-go="mapa">▧ Mapa</button><button data-go="catalogo">✿ Catálogo</button><button data-go="estadisticas">▥ Estadísticas</button><button data-go="comunidad">♧ Comunidad</button>
+    </nav>
+    <div><button class="login" id="loginOpen">🌐 Iniciar sesión</button><div class="userline" id="userLine"></div></div>
+  </div>
   <div class="hero">
-    <div class="plant">🌵🌿</div>
-    <h2>La naturaleza de Putaendo nos necesita</h2>
-    <p>Explora las especies de nuestra comuna y ayuda a construir un catastro colaborativo de su flora.</p>
-    <button class="primary" onclick="showPage('registro')">+ Registrar un avistamiento</button>
+    <span class="eyebrow">✿ Descubre · Observa · Conserva</span>
+    <h1>Flora Viva<span>Putaendo</span></h1>
+    <p>Conectando a la comunidad con la flora nativa de nuestro valle y la belleza de los cactus chilenos.</p>
+    <div class="actions"><button class="btn primary" data-go="mapa">⌖ Explorar el mapa →</button><button class="btn outline" data-go="catalogo">▤ Ver catálogo</button></div>
   </div>
-  <div class="stats">
-    <div class="stat"><strong id="total">0</strong><span>Registros en este dispositivo</span></div>
-    <div class="stat"><strong id="speciesCount">0</strong><span>Especies registradas</span></div>
-    <div class="stat"><strong id="photosCount">0</strong><span>Fotografías</span></div>
-  </div>
-  <h3>Explora Flora Viva</h3>
-  <div class="actions">
-    <button class="action" onclick="showPage('mapa')"><span>📍</span>Mapa de flora</button>
-    <button class="action" onclick="showPage('especies')"><span>🌵</span>Conocer especies</button>
-    <button class="action" onclick="showPage('registro')"><span>📷</span>Subir avistamiento</button>
-    <button class="action" onclick="showPage('catastro')"><span>📊</span>Ver catastro</button>
-  </div>
-  <h3 style="margin-top:22px">Últimos avistamientos de este dispositivo</h3>
-  <div id="recent" class="records"></div>
+</header>
+<section class="features">
+  <button class="feature" data-go="mapa"><span class="feature-icon">⌖</span><span><h3>Mapa interactivo</h3><p>Descubre dónde se encuentran las especies en Putaendo y Chile.</p><a>Ver mapa →</a></span></button>
+  <button class="feature" data-go="catalogo"><span class="feature-icon">✿</span><span><h3>Catálogo de especies</h3><p>Conoce los cactus y plantas nativas de nuestra zona.</p><a>Explorar catálogo →</a></span></button>
+  <button class="feature" data-go="comunidad"><span class="feature-icon">♧</span><span><h3>Únete a la comunidad</h3><p>Registra tus avistamientos y ayuda a proteger nuestra flora.</p><a>Registrar avistamiento →</a></span></button>
 </section>
-
-<section id="mapa" class="page">
-  <h2>Mapa de flora</h2>
-  <p class="muted">Explora los avistamientos guardados en este dispositivo.</p>
-  <div id="map"></div>
-  <button class="secondary" onclick="locateMe()">◎ Mi ubicación</button>
-  <div class="notice">En esta versión, los marcadores son registros locales de este dispositivo. Las ubicaciones de especies sensibles no deben compartirse públicamente con precisión.</div>
-</section>
-
-<section id="registro" class="page">
-  <h2>Registrar avistamiento</h2>
-  <p class="muted">Para enviar una observación debes iniciar sesión. El mapa y el catálogo siguen disponibles para todos.</p>
-
-  <div id="authLoggedOut" class="auth-panel">
-    <h3>Accede a Flora Viva Putaendo</h3>
-    <p class="muted">Puedes continuar con Google o utilizar tu correo electrónico y una contraseña.</p>
-    <div class="auth-buttons">
-      <button type="button" class="google-btn" id="googleButton">🌐 Continuar con Google</button>
-    </div>
-    <form id="emailAuthForm">
-      <label for="authEmail">Correo electrónico</label>
-      <input id="authEmail" type="email" autocomplete="email" placeholder="tu correo electrónico" required>
-      <label for="authPassword">Contraseña</label>
-      <input id="authPassword" type="password" autocomplete="current-password" minlength="6" placeholder="Mínimo 6 caracteres" required>
-      <div class="auth-buttons">
-        <button type="submit" class="primary" id="emailSubmitButton">Iniciar sesión</button>
-        <button type="button" class="secondary" id="toggleAuthMode">Crear una cuenta nueva</button>
-        <button type="button" class="secondary" id="resetPasswordButton">Recuperar contraseña</button>
-      </div>
-    </form>
-    <div id="authMessage" class="auth-message" role="status" aria-live="polite"></div>
-  </div>
-
-  <div id="authLoggedIn" class="auth-panel hidden">
-    <div class="userbar">
-      <span>Sesión iniciada: <strong id="userEmail"></strong></span>
-      <button type="button" class="secondary" id="logoutButton">Cerrar sesión</button>
-    </div>
-    <p class="auth-message ok">Ya puedes completar y guardar un avistamiento en este dispositivo.</p>
-  </div>
-
-  <form id="sightingForm" class="hidden">
-    <label for="species">Especie observada</label>
-    <select id="species" required>
-      <option value="">Selecciona una opción</option>
-      <option>Quisco (Echinopsis chiloensis)</option>
-      <option>Chagual (Puya chilensis)</option>
-      <option>Otro cactus</option>
-      <option>Otra especie de flora</option>
-      <option>Especie pendiente de identificación</option>
-    </select>
-    <label for="quantity">Cantidad aproximada observada</label>
-    <input id="quantity" type="number" min="1" value="1" required>
-    <label for="date">Fecha de observación</label>
-    <input id="date" type="date" required>
-    <label for="photo">Fotografía (opcional)</label>
-    <input id="photo" type="file" accept="image/*">
-    <label for="latitude">Latitud</label>
-    <input id="latitude" type="text" placeholder="Puedes usar el botón GPS" readonly>
-    <label for="longitude">Longitud</label>
-    <input id="longitude" type="text" placeholder="Puedes usar el botón GPS" readonly>
-    <button class="secondary" type="button" onclick="getGPS()">📍 Obtener mi ubicación GPS</button>
-    <label for="observer">Nombre del observador (opcional)</label>
-    <input id="observer" type="text" maxlength="60" placeholder="Nombre o seudónimo">
-    <label for="notes">Observaciones</label>
-    <textarea id="notes" maxlength="500" placeholder="Describe el lugar y las características de la planta..."></textarea>
-    <button class="primary" type="submit">Guardar avistamiento</button>
-  </form>
-  <div class="notice">Aviso: esta etapa incorpora inicio de sesión, pero los avistamientos todavía se guardan únicamente en el navegador de este dispositivo. La base de datos compartida se configurará en la siguiente etapa. No publiques datos personales ni coordenadas exactas de especies amenazadas.</div>
-</section>
-
-<section id="especies" class="page">
-  <h2>Conoce nuestra flora</h2>
-  <p class="muted">Catálogo inicial. La identificación debe ser confirmada por fuentes botánicas o especialistas.</p>
+<section class="section" id="destacadas">
+  <div class="section-head"><div><h2>Especies destacadas</h2><p>Conoce algunas de las cactáceas nativas de nuestra región y de Chile.</p></div><button class="btn primary" data-go="catalogo">Ver todas las especies →</button></div>
   <div class="species-grid">
-    <article class="species"><div class="emoji">🌵</div><h3>Quisco</h3><p><i>Echinopsis chiloensis</i></p><p class="muted">Cactus columnar característico de la zona central de Chile.</p></article>
-    <article class="species"><div class="emoji">🌿</div><h3>Chagual</h3><p><i>Puya chilensis</i></p><p class="muted">Planta nativa de hojas rígidas y floración llamativa.</p></article>
-    <article class="species"><div class="emoji">🌵</div><h3>Otros cactus</h3><p><i>Identificación pendiente</i></p><p class="muted">Registra fotografías para ayudar a reconocer otras especies.</p></article>
-    <article class="species"><div class="emoji">🌱</div><h3>Otra flora nativa</h3><p><i>Identificación pendiente</i></p><p class="muted">En futuras etapas ampliaremos el catálogo a toda la flora local.</p></article>
+    <a class="species featured" href="#catalogo"><img src="https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=700&q=85" alt="Fotografía ilustrativa de una cactácea; no corresponde a una identificación confirmada"><span class="tag">ESPECIE PRINCIPAL · VU</span><span class="species-info"><strong>Eriosyce coimasensis</strong><em>Quisquito rosado de Las Coimas</em></span></a>
+    <a class="species" href="#catalogo"><img src="https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=700&q=85" alt="Planta suculenta"><span class="tag local">Putaendo · VU*</span><span class="species-info"><strong>Eriosyce aurata</strong><em>Sandillón dorado</em></span></a>
+    <a class="species" href="#catalogo"><img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=700&q=85" alt="Vegetación nativa"><span class="tag chile">Chile</span><span class="species-info"><strong>Leucostele chiloensis</strong><em>Quisco</em></span></a>
+    <a class="species" href="#catalogo"><img src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=700&q=85" alt="Planta en ambiente natural"><span class="tag chile">Chile</span><span class="species-info"><strong>Maihueniopsis glomerata</strong><em>Cactácea nativa</em></span></a>
+    <a class="species" href="#catalogo"><img src="https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=700&q=85" alt="Cactus"><span class="tag chile">Chile</span><span class="species-info"><strong>Maihueniopsis ovata</strong><em>Cactácea nativa</em></span></a>
   </div>
+  <p class="map-note">*VU: categoría Vulnerable reportada en el estudio florístico de la cordillera de Putaendo (2023). Las fotografías del catálogo son ilustrativas y no constituyen identificación taxonómica. Para el Quisquito rosado de Las Coimas se debe incorporar una fotografía propia o de una fuente botánica autorizada antes de presentarla como imagen confirmada.</p>
 </section>
-
-<section id="catastro" class="page">
-  <h2>Catastro de este dispositivo</h2>
-  <p class="muted">Resumen de las observaciones guardadas localmente.</p>
-  <div class="stats">
-    <div class="stat"><strong id="catTotal">0</strong><span>Avistamientos</span></div>
-    <div class="stat"><strong id="catQuantity">0</strong><span>Individuos reportados*</span></div>
-    <div class="stat"><strong id="catSpecies">0</strong><span>Tipos registrados</span></div>
-  </div>
-  <div class="notice">*La suma de cantidades observadas no equivale a una estimación científica de la población. Se deben evitar duplicaciones y realizar muestreos adecuados.</div>
-  <div id="allRecords" class="records"></div>
-  <button class="secondary" style="margin-top:15px" onclick="exportCSV()">Descargar registros CSV</button>
-</section>
-<footer>Flora Viva Putaendo · Proyecto de educación ambiental y ciencia ciudadana</footer>
+<main class="section">
+  <section class="panel" id="mapa">
+    <h2>Mapa de observaciones</h2><p>Explora el territorio y consulta los puntos de observación registrados.</p>
+    <div id="map"></div><p class="map-note">Por conservación, este prototipo no publica coordenadas exactas de especies amenazadas. El mapa inicia centrado en Putaendo y mostrará los registros guardados en este navegador.</p>
+  </section>
+  <section class="panel" id="catalogo">
+    <h2>Catálogo de cactáceas y flora nativa</h2>
+    <p>El catálogo distingue registros documentados en Putaendo de especies nativas de otras zonas de Chile.</p>
+    <div class="toolbar"><input id="searchSpecies" placeholder="Buscar por nombre común o científico…"><select id="scopeFilter"><option value="todos">Todas las distribuciones</option><option value="local">Documentadas en Putaendo</option><option value="chile">Otras zonas de Chile</option><option value="complementaria">Flora complementaria</option></select></div>
+    <div class="catalog-grid" id="catalogGrid"></div>
+  </section>
+  <section class="panel" id="estadisticas">
+    <h2>Catastro comunitario</h2><p>Resumen de los avistamientos registrados desde este dispositivo.</p>
+    <div class="stats"><div class="stat"><strong id="statObs">0</strong>Observaciones guardadas</div><div class="stat"><strong id="statSpecies">0</strong>Especies registradas</div><div class="stat"><strong id="statUsers">0</strong>Colaboraciones</div></div>
+  </section>
+  <section class="community" id="comunidad">
+    <div><h2>La conservación comienza con observar</h2><p>Comparte una observación responsable de flora nativa. Para enviar un registro debes iniciar sesión. En esta versión de prueba, los registros quedan guardados solo en este navegador; todavía no se sincronizan entre usuarios.</p></div>
+    <button class="btn primary" id="registerOpen">＋ Registrar avistamiento</button>
+  </section>
+  <section class="panel hidden" id="registerPanel">
+    <h2>Nuevo avistamiento</h2><p>Completa los datos básicos. Evita publicar ubicaciones exactas de especies sensibles.</p>
+    <div class="toolbar"><select id="obsSpecies"><option value="">Selecciona una especie</option></select><input id="obsPlace" placeholder="Sector o localidad (sin coordenadas precisas)"><input id="obsDate" type="date"></div>
+    <button class="btn primary" id="saveObservation">Guardar observación</button><p class="status" id="obsStatus"></p>
+  </section>
 </main>
+<footer class="footer"><div><strong>🌿 Juntos por la conservación de nuestra flora nativa</strong><p>Flora Viva Putaendo · Proyecto de ciencia ciudadana y educación ambiental.</p></div><span>Descubre · Observa · Conserva</span></footer>
 
-<nav>
-  <button class="active" data-page="inicio" onclick="showPage('inicio')"><b>⌂</b>Inicio</button>
-  <button data-page="mapa" onclick="showPage('mapa')"><b>⌖</b>Mapa</button>
-  <button data-page="registro" onclick="showPage('registro')"><b>＋</b>Registrar</button>
-  <button data-page="especies" onclick="showPage('especies')"><b>❀</b>Especies</button>
-  <button data-page="catastro" onclick="showPage('catastro')"><b>▥</b>Catastro</button>
-</nav>
+<div class="modal" id="authModal"><div class="modal-box"><button class="close" id="authClose" aria-label="Cerrar">×</button><h2>Bienvenido a Flora Viva</h2><p>Inicia sesión para registrar observaciones.</p>
+  <div class="field"><label>Correo electrónico</label><input id="email" type="email" placeholder="tu@correo.cl"></div>
+  <div class="field"><label>Contraseña</label><input id="password" type="password" placeholder="Mínimo 6 caracteres"></div>
+  <div class="modal-actions"><button class="google" id="googleLogin">Continuar con Google</button><button class="submit" id="emailLogin">Iniciar sesión con correo</button><button class="google" id="emailCreate">Crear cuenta con correo</button><button class="google" id="resetPassword">Recuperar contraseña</button></div><p class="status" id="authStatus"></p>
+</div></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-const KEY="floraVivaPutaendoRegistros";
-const center=[-32.625,-70.74];
-let map=null,markers=null;
-const getRecords=()=>{try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return []}};
-const saveRecords=r=>localStorage.setItem(KEY,JSON.stringify(r));
-
-function showPage(id){
- document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
- document.getElementById(id).classList.add("active");
- document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
- if(id==="mapa")setTimeout(initMap,150);
- if(id==="inicio"||id==="catastro")render();
- window.scrollTo(0,0);
-}
-function initMap(){
- if(!window.L){document.getElementById("map").innerHTML="No se pudo cargar el mapa. Revisa tu conexión a internet.";return}
- if(!map){
-  map=L.map("map").setView(center,12);
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:'© OpenStreetMap contributors',maxZoom:19}).addTo(map);
-  markers=L.layerGroup().addTo(map);
- }
- map.invalidateSize();
- markers.clearLayers();
- getRecords().forEach(r=>{
-  if(r.lat&&r.lng)L.marker([r.lat,r.lng]).addTo(markers).bindPopup("<b>"+escapeHTML(r.species)+"</b><br>Cantidad: "+r.quantity+"<br>"+escapeHTML(r.date));
- });
-}
-function locateMe(){
- if(!navigator.geolocation){alert("Tu navegador no permite obtener GPS.");return}
- navigator.geolocation.getCurrentPosition(pos=>{
-  if(!map){showPage("mapa");setTimeout(()=>{if(map)map.setView([pos.coords.latitude,pos.coords.longitude],15)},300)}
-  else map.setView([pos.coords.latitude,pos.coords.longitude],15);
- },()=>alert("No pudimos obtener tu ubicación. Revisa los permisos de GPS."),{enableHighAccuracy:true,timeout:15000});
-}
-function escapeHTML(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function getGPS(){
- if(!navigator.geolocation){alert("Tu navegador no permite obtener GPS.");return}
- navigator.geolocation.getCurrentPosition(pos=>{
-  document.getElementById("latitude").value=pos.coords.latitude.toFixed(6);
-  document.getElementById("longitude").value=pos.coords.longitude.toFixed(6);
-  alert("Ubicación obtenida correctamente.");
- },()=>alert("No pudimos obtener tu ubicación. Revisa los permisos de GPS."),{enableHighAccuracy:true,timeout:15000});
-}
-async function compressImage(file){
- if(!file)return "";
- return new Promise(resolve=>{
-  const reader=new FileReader();
-  reader.onload=e=>{
-   const img=new Image();
-   img.onload=()=>{
-    const scale=Math.min(1,900/Math.max(img.width,img.height));
-    const canvas=document.createElement("canvas");
-    canvas.width=Math.round(img.width*scale);canvas.height=Math.round(img.height*scale);
-    canvas.getContext("2d").drawImage(img,0,0,canvas.width,canvas.height);
-    resolve(canvas.toDataURL("image/jpeg",.65));
-   };
-   img.onerror=()=>resolve("");img.src=e.target.result;
-  };
-  reader.onerror=()=>resolve("");reader.readAsDataURL(file);
- });
-}
-document.getElementById("date").value=new Date().toISOString().slice(0,10);
-document.getElementById("sightingForm").addEventListener("submit",async e=>{
- e.preventDefault();
- if(!window.currentFloraUser){alert("Debes iniciar sesión para registrar un avistamiento.");return}
- const file=document.getElementById("photo").files[0];
- if(file&&file.size>10*1024*1024){alert("La fotografía debe pesar menos de 10 MB.");return}
- const photo=await compressImage(file);
- const record={
-  id:Date.now(),species:document.getElementById("species").value,
-  quantity:Number(document.getElementById("quantity").value),
-  date:document.getElementById("date").value,photo,
-  lat:document.getElementById("latitude").value?Number(document.getElementById("latitude").value):null,
-  lng:document.getElementById("longitude").value?Number(document.getElementById("longitude").value):null,
-  observer:document.getElementById("observer").value || window.currentFloraUser.displayName || window.currentFloraUser.email,
-  notes:document.getElementById("notes").value,
-  userId:window.currentFloraUser.uid
- };
- try{
-  const records=getRecords();records.unshift(record);saveRecords(records);
-  e.target.reset();document.getElementById("date").value=new Date().toISOString().slice(0,10);
-  alert("¡Avistamiento guardado en este dispositivo!");
-  render();showPage("catastro");
- }catch(err){alert("No se pudo guardar. Puede que el almacenamiento del navegador esté lleno.");}
-});
-function card(r){
- return '<article class="record">'+(r.photo?'<img src="'+r.photo+'" alt="Fotografía del avistamiento">':'<div style="width:90px;min-width:90px;height:90px;background:#eaf2e9;border-radius:10px;display:grid;place-items:center;font-size:30px">🌿</div>')+
- '<div class="info"><h3>'+escapeHTML(r.species)+'</h3><div class="muted">'+escapeHTML(r.date)+' · Cantidad: '+r.quantity+'</div><p class="muted">'+escapeHTML(r.notes||"Sin observaciones")+'</p></div></article>';
-}
-function render(){
- const r=getRecords(),species=new Set(r.map(x=>x.species));
- document.getElementById("total").textContent=r.length;
- document.getElementById("speciesCount").textContent=species.size;
- document.getElementById("photosCount").textContent=r.filter(x=>x.photo).length;
- document.getElementById("catTotal").textContent=r.length;
- document.getElementById("catQuantity").textContent=r.reduce((a,x)=>a+(Number(x.quantity)||0),0);
- document.getElementById("catSpecies").textContent=species.size;
- document.getElementById("recent").innerHTML=r.length?r.slice(0,3).map(card).join(""):'<div class="empty">Aún no hay avistamientos. ¡Sé el primero en registrar uno!</div>';
- document.getElementById("allRecords").innerHTML=r.length?r.map(card).join(""):'<div class="empty">Todavía no existen registros en este dispositivo.</div>';
-}
-function exportCSV(){
- const rows=getRecords();
- if(!rows.length){alert("No hay registros para exportar.");return}
- const fields=["species","quantity","date","lat","lng","observer","notes"];
- const csv=[fields.join(","),...rows.map(r=>fields.map(k=>'"'+String(r[k]??"").replace(/"/g,'""')+'"').join(","))].join("\n");
- const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8"}));a.download="flora-viva-registros.csv";a.click();URL.revokeObjectURL(a.href);
-}
-render();
-</script>
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import {
-  getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword,
-  signInWithEmailAndPassword, signOut, onAuthStateChanged, sendPasswordResetEmail
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
+// Configuración del proyecto Firebase creado para Flora Viva Putaendo.
 const firebaseConfig = {
   apiKey: "AIzaSyA2E6s0K3EthslDjhnjMEEXJrC-EocjoAk",
   authDomain: "floravivamapp.firebaseapp.com",
@@ -327,112 +96,80 @@ const firebaseConfig = {
   appId: "1:1026456105586:web:641e6bb37c369fafe808eb",
   measurementId: "G-60GT4SLKYR"
 };
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const googleProvider = new GoogleAuthProvider();
-let createMode = false;
+const provider = new GoogleAuthProvider();
 
-const loggedOut = document.getElementById("authLoggedOut");
-const loggedIn = document.getElementById("authLoggedIn");
-const sightingForm = document.getElementById("sightingForm");
-const authMessage = document.getElementById("authMessage");
-const emailForm = document.getElementById("emailAuthForm");
-const emailSubmitButton = document.getElementById("emailSubmitButton");
-const toggleAuthMode = document.getElementById("toggleAuthMode");
+const species = [
+ {sci:"Eriosyce coimasensis",common:"Quisquito rosado de Las Coimas",scope:"local",where:"Endémico de una franja acotada entre Las Coimas (Putaendo) y Montenegro (Región Metropolitana)",status:"Vulnerable (VU) · Clasificación oficial MMA",desc:"Cactácea endémica de Chile y de distribución muy restringida. Sus amenazas incluyen la pérdida y alteración del hábitat y la extracción ilegal. Es la especie principal de Flora Viva Putaendo. Por conservación, no se publican coordenadas de poblaciones.",img:"https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=700&q=85",featured:true},
+ {sci:"Eriosyce aurata",common:"Sandillón dorado",scope:"local",where:"Documentada en la cordillera de Putaendo",status:"Vulnerable (VU)*",desc:"Cactácea globosa nativa. El estudio florístico de Putaendo la reporta en categoría VU.",img:"https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=700&q=85"},
+ {sci:"Leucostele chiloensis",common:"Quisco",scope:"local",where:"Registro documentado en Putaendo",status:"Casi amenazada (NT)*",desc:"Cactácea columnar nativa de Chile central. La publicación registra presencia en el área de estudio.",img:"https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=700&q=85"},
+ {sci:"Maihueniopsis glomerata",common:"Cactácea de crecimiento bajo",scope:"local",where:"Documentada en la cordillera de Putaendo",status:"Casi amenazada (NT)*",desc:"Cactácea nativa incluida en el estudio florístico local.",img:"https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=700&q=85"},
+ {sci:"Maihueniopsis ovata",common:"Cactácea de segmentos ovalados",scope:"local",where:"Documentada en la cordillera de Putaendo",status:"Casi amenazada (NT)*",desc:"Cactácea nativa incluida en el estudio florístico local.",img:"https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=700&q=85"},
+ {sci:"Eriosyce curvispina",common:"Quisquito",scope:"local",where:"Reportada en el estudio de Putaendo",status:"Preocupación menor (LC)*",desc:"La publicación de 2023 registra este taxón en su tabla de conservación.",img:"https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=700&q=85"},
+ {sci:"Eriosyce aconcaguensis",common:"Sandillón del Aconcagua",scope:"chile",where:"Valle del Aconcagua; distribución regional",status:"Taxonomía a verificar",desc:"Taxón del valle del Aconcagua. Su delimitación taxonómica y categoría deben revisarse con fuentes actualizadas.",img:"https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=700&q=85"},
+ {sci:"Echinopsis chiloensis",common:"Quisco",scope:"chile",where:"Chile central; verificar localidad",status:"Nativa de Chile",desc:"Cactácea columnar característica de ambientes mediterráneos de Chile central.",img:"https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=700&q=85"},
+ {sci:"Copiapoa",common:"Copiapoa (género)",scope:"chile",where:"Principalmente norte de Chile",status:"Nativa de Chile",desc:"Género de cactáceas chilenas con especies propias de zonas áridas del norte del país.",img:"https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=700&q=85"},
+ {sci:"Puya chilensis",common:"Chagual",scope:"complementaria",where:"Chile central",status:"Flora nativa · no es cactus",desc:"Planta nativa de Chile central. Se incorpora como flora complementaria, diferenciada de las cactáceas.",img:"https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=700&q=85"}
+];
 
-function showAuthMessage(message, isOk=false) {
-  authMessage.textContent = message;
-  authMessage.className = isOk ? "auth-message ok" : "auth-message";
+const catalogGrid=document.getElementById("catalogGrid");
+function renderCatalog(){
+ const q=document.getElementById("searchSpecies").value.toLowerCase();
+ const scope=document.getElementById("scopeFilter").value;
+ catalogGrid.innerHTML="";
+ species.filter(x=>(scope==="todos"||x.scope===scope)&&(`${x.sci} ${x.common} ${x.where}`).toLowerCase().includes(q)).forEach(x=>{
+  const card=document.createElement("article");card.className="catalog-card"+(x.featured?" priority":"");
+  const img=document.createElement("img");img.src=x.img;img.alt="Imagen ilustrativa de "+x.common+"; no usar para identificación taxonómica";
+  const content=document.createElement("div");
+  const title=document.createElement("h3");title.textContent=x.sci;
+  const common=document.createElement("strong");common.textContent=x.common;
+  const p=document.createElement("p");p.textContent=x.desc;
+  const where=document.createElement("p");where.textContent=x.where;
+  const tag=document.createElement("span");tag.className="pill "+(x.scope==="local"?"":"region");tag.textContent=x.scope==="local"?"Putaendo":x.scope==="chile"?"Otras zonas de Chile":"Flora complementaria";
+  const status=document.createElement("p");status.className="map-pin-note";status.textContent=x.status;
+  content.append(title,common,p,where,tag,status);card.append(img,content);catalogGrid.append(card);
+ });
 }
-function friendlyError(error) {
-  const messages = {
-    "auth/email-already-in-use": "Ese correo ya tiene una cuenta. Prueba iniciar sesión.",
-    "auth/invalid-email": "El correo electrónico no tiene un formato válido.",
-    "auth/weak-password": "La contraseña es demasiado débil. Utiliza al menos 6 caracteres.",
-    "auth/invalid-credential": "El correo o la contraseña no son correctos.",
-    "auth/user-disabled": "Esta cuenta está deshabilitada. Contacta al administrador.",
-    "auth/popup-closed-by-user": "Se cerró la ventana de Google antes de terminar el acceso.",
-    "auth/popup-blocked": "El navegador bloqueó la ventana emergente. Permite ventanas emergentes e inténtalo otra vez.",
-    "auth/unauthorized-domain": "Este dominio no está autorizado en Firebase Authentication.",
-    "auth/network-request-failed": "No hay conexión o se interrumpió la comunicación. Revisa internet."
-  };
-  return messages[error.code] || "No se pudo completar el acceso. Código: " + (error.code || "error desconocido");
-}
+renderCatalog();
+document.getElementById("searchSpecies").addEventListener("input",renderCatalog);
+document.getElementById("scopeFilter").addEventListener("change",renderCatalog);
+const obsSpecies=document.getElementById("obsSpecies");
+species.forEach(x=>{const o=document.createElement("option");o.value=x.sci;o.textContent=x.sci+" — "+x.common;obsSpecies.append(o)});
 
-onAuthStateChanged(auth, user => {
-  window.currentFloraUser = user || null;
-  if (user) {
-    loggedOut.classList.add("hidden");
-    loggedIn.classList.remove("hidden");
-    sightingForm.classList.remove("hidden");
-    document.getElementById("userEmail").textContent = user.email || user.displayName || "Usuario";
-  } else {
-    loggedOut.classList.remove("hidden");
-    loggedIn.classList.add("hidden");
-    sightingForm.classList.add("hidden");
-    document.getElementById("userEmail").textContent = "";
-  }
+const modal=document.getElementById("authModal");
+const authStatus=document.getElementById("authStatus");
+document.getElementById("loginOpen").onclick=()=>modal.classList.add("show");
+document.getElementById("authClose").onclick=()=>modal.classList.remove("show");
+modal.addEventListener("click",e=>{if(e.target===modal)modal.classList.remove("show")});
+document.getElementById("googleLogin").onclick=async()=>{authStatus.textContent="Conectando con Google…";try{await signInWithPopup(auth,provider);modal.classList.remove("show")}catch(e){authStatus.textContent=authError(e)}};
+document.getElementById("emailLogin").onclick=async()=>{authStatus.textContent="";try{await signInWithEmailAndPassword(auth,email.value,password.value);modal.classList.remove("show")}catch(e){authStatus.textContent=authError(e)}};
+document.getElementById("emailCreate").onclick=async()=>{authStatus.textContent="";try{await createUserWithEmailAndPassword(auth,email.value,password.value);modal.classList.remove("show")}catch(e){authStatus.textContent=authError(e)}};
+document.getElementById("resetPassword").onclick=async()=>{try{await sendPasswordResetEmail(auth,email.value);authStatus.textContent="Te enviamos un enlace para recuperar tu contraseña."}catch(e){authStatus.textContent=authError(e)}};
+function authError(e){const m={"auth/invalid-email":"El correo no tiene un formato válido.","auth/weak-password":"La contraseña debe tener al menos 6 caracteres.","auth/email-already-in-use":"Ese correo ya tiene una cuenta.","auth/popup-closed-by-user":"Se cerró la ventana de Google.","auth/invalid-credential":"Correo o contraseña incorrectos.","auth/unauthorized-domain":"Este dominio aún no está autorizado en Firebase."};return m[e.code]||"No se pudo completar el acceso: "+e.message}
+onAuthStateChanged(auth,user=>{
+ const line=document.getElementById("userLine"),login=document.getElementById("loginOpen"),reg=document.getElementById("registerOpen");
+ if(user){line.textContent="Sesión: "+(user.displayName||user.email||"usuario");login.textContent="Cerrar sesión";login.onclick=async()=>{await signOut(auth)};reg.textContent="＋ Registrar avistamiento";reg.disabled=false}
+ else{line.textContent="";login.textContent="🌐 Iniciar sesión";login.onclick=()=>modal.classList.add("show")}
+ updateStats();
 });
-
-document.getElementById("googleButton").addEventListener("click", async () => {
-  showAuthMessage("Conectando con Google...");
-  try {
-    await signInWithPopup(auth, googleProvider);
-    showAuthMessage("Sesión iniciada correctamente con Google.", true);
-  } catch (error) {
-    showAuthMessage(friendlyError(error));
-  }
-});
-
-toggleAuthMode.addEventListener("click", () => {
-  createMode = !createMode;
-  emailSubmitButton.textContent = createMode ? "Crear cuenta" : "Iniciar sesión";
-  toggleAuthMode.textContent = createMode ? "Ya tengo una cuenta" : "Crear una cuenta nueva";
-  document.getElementById("authPassword").setAttribute("autocomplete", createMode ? "new-password" : "current-password");
-  showAuthMessage(createMode ? "Completa tu correo y crea una contraseña de al menos 6 caracteres." : "Ingresa con tu cuenta existente.");
-});
-
-emailForm.addEventListener("submit", async event => {
-  event.preventDefault();
-  const email = document.getElementById("authEmail").value.trim();
-  const password = document.getElementById("authPassword").value;
-  showAuthMessage(createMode ? "Creando tu cuenta..." : "Iniciando sesión...");
-  try {
-    if (createMode) {
-      await createUserWithEmailAndPassword(auth, email, password);
-      showAuthMessage("Cuenta creada e inicio de sesión realizado.", true);
-    } else {
-      await signInWithEmailAndPassword(auth, email, password);
-      showAuthMessage("Sesión iniciada correctamente.", true);
-    }
-  } catch (error) {
-    showAuthMessage(friendlyError(error));
-  }
-});
-
-document.getElementById("resetPasswordButton").addEventListener("click", async () => {
-  const email = document.getElementById("authEmail").value.trim();
-  if (!email) {
-    showAuthMessage("Escribe tu correo electrónico arriba y vuelve a presionar Recuperar contraseña.");
-    return;
-  }
-  try {
-    await sendPasswordResetEmail(auth, email);
-    showAuthMessage("Si el correo está registrado, recibirás instrucciones para restablecer la contraseña.", true);
-  } catch (error) {
-    showAuthMessage(friendlyError(error));
-  }
-});
-
-document.getElementById("logoutButton").addEventListener("click", async () => {
-  try {
-    await signOut(auth);
-    showAuthMessage("Has cerrado sesión correctamente.", true);
-  } catch (error) {
-    showAuthMessage(friendlyError(error));
-  }
-});
+const panel=document.getElementById("registerPanel");
+document.getElementById("registerOpen").onclick=()=>{if(!auth.currentUser){modal.classList.add("show");authStatus.textContent="Inicia sesión para registrar un avistamiento.";return}panel.classList.remove("hidden");panel.scrollIntoView({behavior:"smooth"})};
+function getObs(){try{return JSON.parse(localStorage.getItem("floraVivaObservations")||"[]")}catch{return []}}
+function updateStats(){const a=getObs();document.getElementById("statObs").textContent=a.length;document.getElementById("statSpecies").textContent=new Set(a.map(x=>x.species)).size;document.getElementById("statUsers").textContent=new Set(a.map(x=>x.uid)).size}
+document.getElementById("saveObservation").onclick=()=>{
+ if(!auth.currentUser){modal.classList.add("show");return}
+ const s=obsSpecies.value,p=document.getElementById("obsPlace").value.trim(),d=document.getElementById("obsDate").value;
+ if(!s||!p||!d){document.getElementById("obsStatus").textContent="Completa especie, sector y fecha.";return}
+ const a=getObs();a.push({species:s,place:p,date:d,uid:auth.currentUser.uid});localStorage.setItem("floraVivaObservations",JSON.stringify(a));
+ document.getElementById("obsStatus").textContent="Observación guardada en este dispositivo. Aún no se sincroniza con otros usuarios.";
+ document.getElementById("obsPlace").value="";updateStats();addObservationMarker(p);
+};
+let map;
+if(window.L){map=L.map("map").setView([-32.63,-70.72],11);L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap"}).addTo(map);L.marker([-32.63,-70.72]).addTo(map).bindPopup("Putaendo · centro de referencia");}
+function addObservationMarker(place){if(map)L.circleMarker([-32.63,-70.72],{radius:7,color:"#2d743c"}).addTo(map).bindPopup("Observación registrada: "+place+" (ubicación general)")}
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.go;document.getElementById(id)?.scrollIntoView({behavior:"smooth"});document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.go===id));if(id==="mapa"&&map)setTimeout(()=>map.invalidateSize(),350)}));
+updateStats();
 </script>
 </body>
 </html>
