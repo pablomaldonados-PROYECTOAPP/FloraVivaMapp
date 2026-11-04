@@ -64,7 +64,7 @@
     <div class="stats"><div class="stat"><strong id="statObs">0</strong>Observaciones guardadas</div><div class="stat"><strong id="statSpecies">0</strong>Especies registradas</div><div class="stat"><strong id="statUsers">0</strong>Colaboraciones</div></div>
   </section>
   <section class="community" id="comunidad">
-    <div><h2>La conservación comienza con observar</h2><p>Comparte una observación responsable de flora nativa. Para enviar un registro debes iniciar sesión. En esta versión de prueba, los registros quedan guardados solo en este navegador; todavía no se sincronizan entre usuarios.</p></div>
+    <div><h2>La conservación comienza con observar</h2><p>Comparte una observación responsable de flora nativa. Para enviar un registro debes iniciar sesión. Las observaciones se guardan en la base de datos comunitaria de Flora Viva Putaendo.</p></div>
     <button class="btn primary" id="registerOpen">＋ Registrar avistamiento</button>
   </section>
   <section class="panel hidden" id="registerPanel">
@@ -85,6 +85,7 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 // Configuración del proyecto Firebase creado para Flora Viva Putaendo.
 const firebaseConfig = {
@@ -98,6 +99,7 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
 const species = [
@@ -155,15 +157,52 @@ onAuthStateChanged(auth,user=>{
 });
 const panel=document.getElementById("registerPanel");
 document.getElementById("registerOpen").onclick=()=>{if(!auth.currentUser){modal.classList.add("show");authStatus.textContent="Inicia sesión para registrar un avistamiento.";return}panel.classList.remove("hidden");panel.scrollIntoView({behavior:"smooth"})};
-function getObs(){try{return JSON.parse(localStorage.getItem("floraVivaObservations")||"[]")}catch{return []}}
-function updateStats(){const a=getObs();document.getElementById("statObs").textContent=a.length;document.getElementById("statSpecies").textContent=new Set(a.map(x=>x.species)).size;document.getElementById("statUsers").textContent=new Set(a.map(x=>x.uid)).size}
-document.getElementById("saveObservation").onclick=()=>{
+let sharedObservations = [];
+
+function updateStats(){
+ const a=sharedObservations;
+ document.getElementById("statObs").textContent=a.length;
+ document.getElementById("statSpecies").textContent=new Set(a.map(x=>x.species)).size;
+ document.getElementById("statUsers").textContent=new Set(a.map(x=>x.usuarioId)).size;
+}
+
+// Todos pueden leer el catastro; el envío exige sesión y cumple las reglas
+// publicadas en Firestore (usuarioId debe coincidir con el usuario autenticado).
+onSnapshot(collection(db,"observaciones"), snapshot=>{
+ sharedObservations=snapshot.docs.map(doc=>({id:doc.id,...doc.data()}));
+ updateStats();
+ document.getElementById("obsStatus").textContent=
+   sharedObservations.length ? "Catastro comunitario actualizado." : "Aún no hay observaciones comunitarias.";
+}, error=>{
+ console.error("Error al leer observaciones de Firestore:",error);
+ document.getElementById("obsStatus").textContent="No se pudo cargar el catastro. Revisa las reglas de Firestore.";
+});
+
+document.getElementById("saveObservation").onclick=async()=>{
  if(!auth.currentUser){modal.classList.add("show");return}
  const s=obsSpecies.value,p=document.getElementById("obsPlace").value.trim(),d=document.getElementById("obsDate").value;
  if(!s||!p||!d){document.getElementById("obsStatus").textContent="Completa especie, sector y fecha.";return}
- const a=getObs();a.push({species:s,place:p,date:d,uid:auth.currentUser.uid});localStorage.setItem("floraVivaObservations",JSON.stringify(a));
- document.getElementById("obsStatus").textContent="Observación guardada en este dispositivo. Aún no se sincroniza con otros usuarios.";
- document.getElementById("obsPlace").value="";updateStats();addObservationMarker(p);
+ const saveButton=document.getElementById("saveObservation");
+ saveButton.disabled=true;
+ document.getElementById("obsStatus").textContent="Guardando observación en la base comunitaria…";
+ try{
+  await addDoc(collection(db,"observaciones"),{
+   species:s,
+   place:p,
+   date:d,
+   usuarioId:auth.currentUser.uid,
+   uid:auth.currentUser.uid,
+   createdAt:new Date().toISOString()
+  });
+  document.getElementById("obsStatus").textContent="¡Observación guardada en Flora Viva Putaendo y compartida con la comunidad!";
+  document.getElementById("obsPlace").value="";
+  document.getElementById("obsDate").value="";
+ }catch(error){
+  console.error("Error al guardar observación:",error);
+  document.getElementById("obsStatus").textContent="No se pudo guardar. Verifica tu conexión y las reglas de Firestore.";
+ }finally{
+  saveButton.disabled=false;
+ }
 };
 let map;
 if(window.L){map=L.map("map").setView([-32.63,-70.72],11);L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap"}).addTo(map);L.marker([-32.63,-70.72]).addTo(map).bindPopup("Putaendo · centro de referencia");}
